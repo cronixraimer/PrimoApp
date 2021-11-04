@@ -84,7 +84,104 @@ const Home = ({navigation}) => {
         setSelectedCategory(category)
     }
 
-    
+    function renderHeader() {
+        return (
+            /* Main Top Left */
+            <View style = {{flexDirection: 'row', height: 50}}>
+                <TouchableOpacity style = {{
+                    width: 50,
+                    paddingLeft: SIZES.padding,
+                    justifyContent: 'center',
+                }} onPress = {() => navigation.navigate('Home')}>
+                    <Image
+                        source = {icons.maintenance_icon}
+                        resizeMode = 'contain'
+                        style = {{
+                            width: 50,
+                            height: 50,
+                            borderRadius: 50/2
+                        }} />
+                </TouchableOpacity>
+
+                <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <View
+                        style = {{
+                            width: '70',
+                            height: '100%',
+                            backgroundColor: COLORS.white,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: SIZES.radius
+                        }}>
+                            <Text style = {{color: 'green'}}>PRIMO</Text>
+                        </View>
+                </View>
+
+                {/* Main Top Left */}
+                <TouchableOpacity
+                    style = {{
+                        width: 50,
+                        paddingRight: SIZES.padding * 6,
+                        justifyContent: 'center'
+                    }} onPress = {() => navigation.navigate('PlaceOrder')}>
+                        <Image
+                            source = {icons.premium_cleaning_icon}
+                            resizeMode = 'contain'
+                            style = {{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50/2
+                            }} />
+                    </TouchableOpacity>
+            </View>
+        )
+    }
+
+    function renderMainCategories() {
+        const renderItem = ({item}) => {
+            return (
+                <TouchableOpacity
+                    style = {{
+                        padding: SIZES.padding,
+                        paddingBottom: SIZES.padding * 2,
+                        backgroundColor: (selectedCategory?.id == item.id) ? COLORS.darkgray : COLORS.white,
+                        borderRadius: SIZES.radius,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: SIZES.padding,
+                        ...StyleSheet.shadow
+                    }} onPress = {() => onSelectCategory(item)} >
+
+                        <View
+                            style = {{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 50,
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <Image
+                                    source = {item.icon}
+                                    resizeMode = 'contain'
+                                    style = {{
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 50 / 2
+                                    }} />
+                            </View>
+
+                        <Text 
+                            style = {{
+                                marginTop: SIZES.padding,
+                                color: (selectedCategory?.id == item.id) ? COLORS.white : COLORS.black
+                            }} >
+                                {item.name}
+                            </Text>
+                    </TouchableOpacity>
+            )
+        }
+    }
+
 }
 
 export default Home;
