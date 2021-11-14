@@ -180,8 +180,125 @@ const Home = ({navigation}) => {
                     </TouchableOpacity>
             )
         }
+        return (
+            <View style = {{ padding: SIZES.padding * 2 }}>
+                {/* <Text > Main Cleaning </Text>
+                    <Text> Categories </Text> */}
+
+                <FlatList
+                    data = {categories}
+                    horizontal
+                    showsHorizontalScrollIndicator = {false}
+                    keyExtractor = {item => `${item.id}`}
+                    renderItem = { renderItem }
+                    contentContainerStyle = {{ paddingVertical: SIZES.padding }} />
+            </View>
+        )
     }
 
+    function renderServicesList() {
+
+        const renderItem = ({item}) => (
+            <TouchableOpacity
+                style = {{marginBottom: SIZES.padding * 2 }}
+                //onPressNavigate to list
+                onPress = { () => navigation.navigate('Cleaning', {item})}>
+
+                         {/* Image */}
+
+                <View  style = {{ marginBottom: SIZES.padding }} >
+
+                <Image source = {item.photo}
+                resizeMode = 'cover'
+                style = {{
+                    width: '100%',
+                    height: 200,
+                    borderRadius: SIZES.radius }} />
+                
+                <View 
+                    style = {{
+                        position: 'absolute',
+                        bottom: 0,
+                        height: 50,
+                        width: SIZES.width * 0.3,
+                        backgroundColor: COLORS.white,
+                        borderTopRightRadius: SIZES.radius,
+                        borderBottomLeftRadius: SIZES.radius,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        ...styles.shadow
+                    }}>
+                        <Text> { item,duration } </Text>
+                    </View>
+                </View>
+
+                {/* Services Info */}
+
+                <Text> { item.name }</Text>
+
+                <View style = {{
+                    marginTop: SIZES.padding,
+                    flexDirection: 'row'
+                }}>
+
+                    {/* Rating */}
+
+                    {/* Categories */}
+
+                <View style = {{ flexDirection: 'row', marginLeft: 10 }}>
+                        {
+                            item.categories.map((categoryId) => {
+                                return (
+                                    <View style = {{ flexDirection: 'row'}}
+                                        key = {categoryId}>
+                                    <Text>{getCategoryNameById(categoryId)}</Text>
+                                    <Text> . </Text>
+                                    </View>
+                                )
+                            })
+                        }
+                     </View>
+                </View>
+            </TouchableOpacity>
+        )
+
+        return (
+            <FlatList
+                data = {services}
+                keyExtractor = {item => `${item.id}`}
+                renderItem = {renderItem}
+                contentContainerStyle = {{
+                    paddingHorizontal: SIZES.padding * 2,
+                    paddingBottom: 30
+                }} />
+        )
+    }
+
+
+        return (
+            <SafeAreaView style = {styles.container}>
+                {renderHeader()}
+                {renderMainCategories()}
+                {renderServicesList()}
+            </SafeAreaView>
+        )
 }
 
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.lightGray3
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 1,
+    }
+})
 export default Home;
