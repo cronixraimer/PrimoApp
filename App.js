@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './navigation/tabs'
 
 import { 
-        Home, 
+         
         Cashback,
         Cleaning,
         Login,
@@ -21,9 +21,7 @@ const App = () => {
     
       <NavigationContainer>
         <Stack.Navigator
-            screenOptions = {{
-              headerShow:false
-            }}
+           screenOptions={{headerShown: false}}
             initialRouteName = { 'Home' }>
 
               <Stack.Screen name='Home' component={Tabs} />

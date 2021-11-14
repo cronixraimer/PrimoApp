@@ -18,30 +18,31 @@ const Home = ({navigation}) => {
         {
             id: 1,
             name: "CLEANING",
-            icons: icons.cleaning_icon,
+            icon: icons.cleaning_icon,
         },
         {
             id: 2,
             name: "PREMIUM",
-            icons: icons.premium_cleaning_icon,
+            icon: icons.premium_cleaning_icon,
         },
         {
             id: 3,
             name: "DEEP",
-            icons: icons.deep_cleaning_icon,
+            icon: icons.deep_cleaning_icon,
         },
         {
             id: 4,
             name: "MAINT",
-            icons: icons.maintenance_icon
+            icon: icons.maintenance_icon
         }
     ]
 
-    const serviceData = [
+    const servicesData = [
         {
             id: 1,
+            name: "Home Cleaning",
             categories: [1],
-            photo: images.image_1,
+            photo: images.image_2,
             duration: "MINIMUM OF SERVICE 3 HOURS",
 
             menu: [
@@ -50,7 +51,8 @@ const Home = ({navigation}) => {
                     name: "Home Cleaning",
                     photo: images.image_1,
                     description: "Best home cleaning in DUBAI",
-                    price: 34
+                    price: 34,
+
                 },
                 {
                     menuID: 2,
@@ -59,6 +61,61 @@ const Home = ({navigation}) => {
                     description: "Best home cleaning in DUBAI",
                     price: 37
                 }
+            ]
+        },
+        
+        {
+            id: 2,
+            name: "Premium Cleaning",
+            categories: [2],
+            photo: images.image_2,
+            duration: "MINIMUM OF SERVICE 3 HOURS",
+            
+            menu: [
+                {
+                    menuId: 4,
+                    name: "Premium Cleaning",
+                    photo: images.image_2,
+                    description: "Best home cleaning in DUBAI",
+                    price: 70
+                }
+
+            ]
+        },
+        {
+            id: 3,
+            name: "Deep Cleaning",
+            categories: [3],
+            photo: images.image_2,
+            duration: "MINIMUM OF SERVICE 5 HOURS",
+            
+            menu: [
+                {
+                    menuId: 5,
+                    name: "Sanitazation",
+                    photo: images.image_2,
+                    description: "Best home cleaning in DUBAI",
+                    price: 550
+                }
+
+            ]
+        },
+        {
+            id: 4,
+            name: "Maintenance",
+            categories: [4],
+            photo: images.image_2,
+            duration: "MINIMUM OF SERVICE 7 HOURS",
+            
+            menu: [
+                {
+                    menuId: 3,
+                    name: "AC Duct Cleaning",
+                    photo: images.image_2,
+                    description: "Best home cleaning in DUBAI",
+                    price: 700
+                }
+
             ]
         }
     ]
@@ -84,6 +141,7 @@ const Home = ({navigation}) => {
         setSelectedCategory(category)
     }
 
+   //Top Header if I will need it unless it is here usless
     function renderHeader() {
         return (
             /* Main Top Left */
@@ -92,7 +150,7 @@ const Home = ({navigation}) => {
                     width: 50,
                     paddingLeft: SIZES.padding,
                     justifyContent: 'center',
-                }} onPress = {() => navigation.navigate('Home')}>
+                }}>
                     <Image
                         source = {icons.maintenance_icon}
                         resizeMode = 'contain'
@@ -106,7 +164,7 @@ const Home = ({navigation}) => {
                 <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <View
                         style = {{
-                            width: '70',
+                            width: '70%',
                             height: '100%',
                             backgroundColor: COLORS.white,
                             alignItems: 'center',
@@ -117,13 +175,14 @@ const Home = ({navigation}) => {
                         </View>
                 </View>
 
-                {/* Main Top Left */}
+                {/* Main Top Right */}
                 <TouchableOpacity
                     style = {{
                         width: 50,
                         paddingRight: SIZES.padding * 6,
                         justifyContent: 'center'
                     }} onPress = {() => navigation.navigate('PlaceOrder')}>
+                       
                         <Image
                             source = {icons.premium_cleaning_icon}
                             resizeMode = 'contain'
@@ -136,7 +195,7 @@ const Home = ({navigation}) => {
             </View>
         )
     }
-
+   
     function renderMainCategories() {
         const renderItem = ({item}) => {
             return (
@@ -156,7 +215,7 @@ const Home = ({navigation}) => {
                             style = {{
                                 width: 50,
                                 height: 50,
-                                borderRadius: 50,
+                                borderRadius: 25,
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}>
@@ -228,7 +287,7 @@ const Home = ({navigation}) => {
                         justifyContent: 'center',
                         ...styles.shadow
                     }}>
-                        <Text> { item,duration } </Text>
+                        <Text> { item.duration } </Text>
                     </View>
                 </View>
 
@@ -277,7 +336,7 @@ const Home = ({navigation}) => {
 
         return (
             <SafeAreaView style = {styles.container}>
-                {renderHeader()}
+                {/*{renderHeader()}*/}
                 {renderMainCategories()}
                 {renderServicesList()}
             </SafeAreaView>

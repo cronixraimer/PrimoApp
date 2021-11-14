@@ -7,7 +7,7 @@ import {
 import { createBottomTabNavigator, BottomTabBar } from "@react-navigation/bottom-tabs"
 import Svg, { Path } from 'react-native-svg';
 
-import { Home } from "../screens"
+import { Cashback, Home, Schedule, User} from "../screens"
 
 import { COLORS, icons } from "../constants"
 
@@ -92,14 +92,9 @@ const CustomTabBar = (props) => {
 const Tabs = () => {
     return (
         <Tab.Navigator
-            tabBarOptions={{
-                showLabel: false,
+            tabBarOptions={{ showLabel: false,
                 style: {
                     position: 'absolute',
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    borderTopWidth: 0,
                     backgroundColor: "transparent",
                     elevation: 0
                 }
@@ -135,7 +130,7 @@ const Tabs = () => {
 
             <Tab.Screen
                 name="Schedule"
-                component={Home}
+                component={Schedule}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -158,7 +153,7 @@ const Tabs = () => {
 
             <Tab.Screen
                 name="Cashback"
-                component={Home}
+                component={Cashback}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -181,7 +176,7 @@ const Tabs = () => {
 
             <Tab.Screen
                 name="User"
-                component={Home}
+                component={User}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image

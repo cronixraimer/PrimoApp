@@ -1,9 +1,11 @@
 import React from 'react';
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 const Cleaning = () => {
     return (
-        <View> </View>
+        <View> 
+            <Text> Cleaning</Text>
+            </View>
     )
 }
 
