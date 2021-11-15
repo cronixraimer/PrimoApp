@@ -1,12 +1,29 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { 
+    View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Animated
+ } from 'react-native'
 
-const Cleaning = () => {
+import { icons, COLORS, SIZES, } from '../constants'
+import MyDatePicker from '../constants/mydatepicker';
+
+
+
+
+const Cleaning = ({ route, navigation }) => {
+    
+
     return (
-        <View> 
-            <Text> Cleaning</Text>
-            </View>
+        
+        <MyDatePicker />
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: COLORS.lightGray2
+    }
+})
 
 export default Cleaning;
