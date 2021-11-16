@@ -17,6 +17,7 @@ const [currentLocation, setCurrentLocation] = React.useState(null)
 const [orderItems, setOrderItems] = React.useState([])
 
 React.useEffect(() => {
+    let { item, currentLocation } = route.params;
     setService(item)
     setCurrentLocation(currentLocation)
 })
@@ -162,6 +163,7 @@ React.useEffect(() => {
                                             }}
                                             onPress={() => editOrder('-', item.menuId, item.price)}
                                             >
+                                                <Text>-</Text>
                                             </TouchableOpacity> 
 
                                             <View style = {{
@@ -206,6 +208,7 @@ React.useEffect(() => {
     function renderDots() {
         const dotPostion = Animated.divide(scrollX, SIZES.width)
         return (
+        <View style = {{ height: 30}}>    
             <View style = {{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -227,24 +230,44 @@ React.useEffect(() => {
                     })
 
                     const dotColor = dotPostion.interpolate({
-
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [COLORS.darkgray, COLORS.primary, COLORS.darkgray],
+                        extrapolate: 'clamp'
                     })
+
+                    return (
+                        <Animated.View 
+                            key={`dot-${index}`}
+                            opacity = {opacity}
+                            style = {{
+                                borderRadius: SIZES.radius,
+                                marginHorizontal: 6,
+                                width: dotSize,
+                                height: dotSize,
+                                backgroundColor: 'darkgreen'
+                            }}
+                        />
+                    )
                 })}
             </View>
+        </View>    
         )
     }
     
     return (
+        <SafeAreaView style = {styles.container}>
+            {renderHeader()}
+            {renderServiceInfo()}
+        </SafeAreaView>
         
-        <MyDatePicker />
     )
 }
 
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
     container: {
         flex: 1,
-        backgroundColor: COLORS.lightGray2
+        backgroundColor: COLORS.lightGray2 
     }
 })
 
