@@ -55,7 +55,7 @@ React.useEffect(() => {
 
     }
 
-    function getOrderQty(menyId) {
+    function getOrderQty(menuId) {
         let orderItem = orderItems.filter(a => a.menuId == menuId)
 
         if (orderItem.length > 0) {
@@ -119,7 +119,121 @@ React.useEffect(() => {
 
                 {/*Animation Sroll Section */}
 
+    function renderServiceInfo() {
+        return (
+            <Animated.ScrollView
+                horizontal
+                pagingEnabled
+                scrollEventThrottle={16}
+                snapToAlignment='center'
+                showsHorizontalScrollIndicator={false}
+                //onScroll
+                onScroll = {Animated.event([
+                    { nativeEvent: { contentOffset: { x: scrollX } } }
+                ],  { useNativeDriver: false })}>
+                    { service?.menu.map((item, index ) => (
+                        <View
+                            key={`menu-${index}`}
+                            style = {{alignItems: 'center'}}>
+                                <View style = {{ height: SIZES.height * 0.35}}>
+                                    {/* Service Images */}
+                                    
+                                        <Image
+                                            source = {item.photo}
+                                            resizeMode = 'cover'
+                                            style = {{ width: SIZES.width, height: '100%' }} />
 
+                                    {/* Quantity of time */}
+                                        <View style = {{
+                                            position: 'absolute',
+                                            bottom: -20,
+                                            width: SIZES.width,
+                                            height: 50,
+                                            justifyContent: 'center',
+                                            flexDirection: 'row'
+                                        }}>
+                                            <TouchableOpacity style = {{
+                                                width: 50,
+                                                backgroundColor: COLORS.white,
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderTopLeftRadius: 25,
+                                                borderBottomLeftRadius: 25
+                                            }}
+                                            onPress={() => editOrder('-', item.menuId, item.price)}
+                                            >
+                                            </TouchableOpacity> 
+
+                                            <View style = {{
+                                                width: 50,
+                                                backgroundColor: COLORS.white,
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}> <Text> 4 H </Text>
+                                            </View>  
+                                            
+                                            <TouchableOpacity style = {{
+                                                width: 50,
+                                                backgroundColor: COLORS.white,
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderBottomLeftRadius: 25,
+                                                borderTopLeftRadius: 25,
+                                            }}
+                                                onPress = {() => editOrder('+', item.menuId, item.price)}
+                                            >
+                                                 <Text>+</Text>   
+                                            </TouchableOpacity>
+                                        </View>     
+                                </View>
+
+                                {/* Description of Service */}
+                                <View style ={{
+                                    width: SIZES.width,
+                                    alignItems: 'center',
+                                    marginTop: 25,
+                                    paddingHorizontal: SIZES.padding * 2
+                                }}>
+                                    <Text style ={{ marginVertical: 10, textAlign: 'center'}}>Rate</Text>
+                                    <Text> {item.description}</Text>
+                                </View>
+                            </View>
+                    ))}
+                </Animated.ScrollView>
+        )
+    }    
+    {/* Dots on each screens of Services */}
+    function renderDots() {
+        const dotPostion = Animated.divide(scrollX, SIZES.width)
+        return (
+            <View style = {{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: SIZES.padding
+            }}>
+                {service?.menu.map((item, index ) => {
+                    
+                    const opacity = dotPostion.interpolate({
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [0.3, 1, 0.3],
+                        extrapolate: 'clamp'
+                    })
+
+                    const dotSize = dotPostion.interpolate({
+                        inputRange: [index - 1, index, index + 1],
+                        outputRange: [SIZES.base * 0.8, 10, SIZES.base * 0.8 ],
+                        extrapolate: 'clamp'
+                    })
+
+                    const dotColor = dotPostion.interpolate({
+
+                    })
+                })}
+            </View>
+        )
+    }
+    
     return (
         
         <MyDatePicker />
