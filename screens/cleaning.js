@@ -73,6 +73,7 @@ React.useEffect(() => {
 
     function sumOrder() {
         let total = orderItems.reduce((a, b) => a + (b.total || 0), 0)
+        return total.toFixed(2)
     }
 
     function renderHeader() {
@@ -87,7 +88,7 @@ React.useEffect(() => {
                         onPress = {() => navigation.goBack()} >
 
                             <Image
-                                source = {icons.icon_1}
+                                source = {icons.back}
                                 resizeMode = 'contain'
                                 style = {{
                                     width: 30,
@@ -106,7 +107,7 @@ React.useEffect(() => {
                                 height: 50,
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingHorizontal: SIZES.padding * 6,
+                                paddingHorizontal: SIZES.padding * 3,
                                 borderRadius: SIZES.radius,
                                 backgroundColor: COLORS.lightGray2
                             }}>
@@ -114,6 +115,20 @@ React.useEffect(() => {
                             <Text style = {{ color: 'darkgreen' }}>{service?.name}</Text>
                         </View>
                     </View>
+                    <TouchableOpacity
+                        style = {{ 
+                            width: 50,
+                            paddingRight: SIZES.padding * 2,
+                            justifyContent: 'center'
+                        }} >
+                            <Image
+                                source = {icons.icon_1}
+                                resizeMode = 'contain'
+                                style = {{
+                                    width: 30,
+                                    height: 30
+                                }} />
+                        </TouchableOpacity>
             </View>
         )
     }
@@ -132,6 +147,7 @@ React.useEffect(() => {
                 onScroll = {Animated.event([
                     { nativeEvent: { contentOffset: { x: scrollX } } }
                 ],  { useNativeDriver: false })}>
+
                     { service?.menu.map((item, index ) => (
                         <View
                             key={`menu-${index}`}
@@ -163,7 +179,7 @@ React.useEffect(() => {
                                             }}
                                             onPress={() => editOrder('-', item.menuId, item.price)}
                                             >
-                                                <Text>-</Text>
+                                              <Text>-</Text>
                                             </TouchableOpacity> 
 
                                             <View style = {{
@@ -171,7 +187,7 @@ React.useEffect(() => {
                                                 backgroundColor: COLORS.white,
                                                 alignItems: 'center',
                                                 justifyContent: 'center'
-                                            }}> <Text> 4 H </Text>
+                                            }}><Text>{getOrderQty(item.menuId)}</Text>
                                             </View>  
                                             
                                             <TouchableOpacity style = {{
@@ -179,12 +195,12 @@ React.useEffect(() => {
                                                 backgroundColor: COLORS.white,
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                borderBottomLeftRadius: 25,
-                                                borderTopLeftRadius: 25,
+                                                borderTopRightRadius: 25,
+                                                borderBottomRightRadius: 25,
                                             }}
                                                 onPress = {() => editOrder('+', item.menuId, item.price)}
                                             >
-                                                 <Text>+</Text>   
+                                                 <Text>+</Text>
                                             </TouchableOpacity>
                                         </View>     
                                 </View>
@@ -196,7 +212,7 @@ React.useEffect(() => {
                                     marginTop: 25,
                                     paddingHorizontal: SIZES.padding * 2
                                 }}>
-                                    <Text style ={{ marginVertical: 10, textAlign: 'center'}}>Rate</Text>
+                                   <Text style ={{ marginVertical: 10, textAlign: 'center'}}>{item.name} - {item.price.toFixed(2)}</Text>
                                     <Text> {item.description}</Text>
                                 </View>
                             </View>
@@ -253,11 +269,90 @@ React.useEffect(() => {
         </View>    
         )
     }
+
+    function renderOrder() {
+        return (
+            <View>
+                {renderDots()}
+
+                <View   style = {{
+                    backgroundColor: COLORS.white,
+                    borderTopLeftRadius: 40,
+                    borderTopRightRadius: 40
+                }}>
+                    <View   style = {{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingVertical: SIZES.padding * 2,
+                        paddingHorizontal: SIZES.padding * 3,
+                        borderBottomColor: COLORS.lightGray2,
+                        borderBottomWidth: 1
+                    }}>
+                        <Text> {getBasketItemCount()}  Hours of Booking</Text>
+                        <Text>${sumOrder()}</Text>
+                    </View>
+                    <View   style = {{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        paddingVertical: SIZES.padding * 2,
+                        paddingHorizontal: SIZES.padding * 3
+                    }} >
+                        <View   style = {{ flexDirection: 'row' }}>
+                            <Image source={icons.user}
+                                resizeMode='contain'
+                                style = {{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: 'darkgreen'
+                                }} />
+                                    <Text style = {{ marginLeft: SIZES.padding, fontSize: 18}}> DOWNTOWN DUBAI</Text>
+                        </View>
+                        <View   style = {{ flexDirection: 'row'}}>
+                            <Image
+                                source = {icons.icon_1}
+                                resizeMode = 'contain'
+                                style = {{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: 'darkgreen'
+                                }} />
+                                    <Text style = {{ marginLeft: SIZES.padding, fontSize: 15}}>APT 13</Text>
+                        </View>
+                    </View>
+                    {/* Order Button */}
+                    <View
+                        style = {{
+                            padding: SIZES.padding * 2,
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }} >
+                            <TouchableOpacity
+                                style = {{
+                                    width: SIZES.width * 0.9,
+                                    padding: SIZES.padding,
+                                    backgroundColor: 'darkgreen',
+                                    alignItems: 'center',
+                                    borderRadius: SIZES.radius
+                                }}
+                                onPress = {() => navigation.navigate("OrderDilevery", {
+                                    service: service,
+                                    currentLocation: currentLocation
+                                    })}
+                                    >
+                                        <Text style = {{ color: COLORS.white, fontSize: 13}}>BOOK</Text>
+                                    </TouchableOpacity>
+                                
+                        </View>
+                </View>
+            </View>
+        )
+    }
     
     return (
         <SafeAreaView style = {styles.container}>
             {renderHeader()}
             {renderServiceInfo()}
+            {renderOrder()}
         </SafeAreaView>
         
     )

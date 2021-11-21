@@ -7,6 +7,7 @@ const cleaning_icon = require("../assets/icons/cleaning.png");
 const premium_cleaning_icon = require("../assets/icons/Premium-gold1.png")
 const deep_cleaning_icon = require("../assets/icons/deep.png")
 const maintenance_icon = require("../assets/icons/maintenance.png")
+const back = require("../assets/icons/back.png")
 export default {
     icon_1,
     home,
@@ -17,6 +18,7 @@ export default {
     premium_cleaning_icon,
     deep_cleaning_icon,
     maintenance_icon,
+    back
     
 
 }
