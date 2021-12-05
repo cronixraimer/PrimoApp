@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-    View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Animated
+    View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Animated, ScrollView
  } from 'react-native'
 
 import { icons, COLORS, SIZES, } from '../constants'
@@ -341,18 +341,23 @@ React.useEffect(() => {
                                     >
                                         <Text style = {{ color: COLORS.white, fontSize: 13}}>BOOK</Text>
                                     </TouchableOpacity>
+                                    
                                 
                         </View>
+                        
                 </View>
             </View>
         )
     }
     
     return (
+        
         <SafeAreaView style = {styles.container}>
+            { /* <ScrollView> */ }
             {renderHeader()}
             {renderServiceInfo()}
-            {renderOrder()}
+            {renderOrder()}     
+            {/* </ScrollView> */} 
         </SafeAreaView>
         
     )

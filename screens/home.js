@@ -49,7 +49,7 @@ const Home = ({navigation}) => {
                 {
                     menuID: 1,
                     name: "Home Cleaning",
-                    photo: images.image_1,
+                    photo: images.image_2,
                     description: "Best home cleaning in DUBAI",
                     price: 34,
 
