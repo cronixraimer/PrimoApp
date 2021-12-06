@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
-    View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Animated, ScrollView
+    View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, Animated, Button, Platform, ScrollView
  } from 'react-native'
 
 import { icons, COLORS, SIZES, } from '../constants'
-import MyDatePicker from '../constants/mydatepicker';
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 
 
@@ -15,6 +15,33 @@ const scrollX = new Animated.Value(0)
 const [service, setService] = React.useState(null)
 const [currentLocation, setCurrentLocation] = React.useState(null)
 const [orderItems, setOrderItems] = React.useState([])
+const [date, setDate] = useState(new Date (1598051730000))
+const [mode, setMode] = useState('date')
+const [modetime, setModeTime] = useState('time')
+const [show, setShow] = useState(false)
+
+const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date
+    setShow(Platform.OS === 'ios')
+    setDate(currentDate)
+    setTime(currentTime)
+}
+const showModeDate = (currentMode) => {
+    setShow(true)
+    setMode(currentMode)
+}
+const showModeTime = (currentModeTime) => {
+    setShow(true)
+    setMode(currentModeTime)
+}
+
+const showDatepicker = () => {
+    showModeDate('date')
+}
+
+const showTimepicker = () => {
+    showModeTime('time')
+}
 
 React.useEffect(() => {
     let { item, currentLocation } = route.params;
@@ -272,7 +299,7 @@ React.useEffect(() => {
 
     function renderOrder() {
         return (
-            <View>
+            <ScrollView>
                 {renderDots()}
 
                 <View   style = {{
@@ -280,6 +307,46 @@ React.useEffect(() => {
                     borderTopLeftRadius: 40,
                     borderTopRightRadius: 40
                 }}>
+                    <View>
+                        <View style = {{ 
+                            
+                            paddingVertical: SIZES.padding * 2,
+                            paddingHorizontal: SIZES.padding * 3,
+                            borderBottomColor: COLORS.lightGray2,
+                            borderBottomWidth: 1 }}>
+                                {show && (
+                            <DateTimePicker
+                                testID = "dateTimePicker"
+                                value = {date}
+                                mode = {mode}
+                                is24Hour = {true}
+                                display = 'default'
+                                onChange = {onChange}
+                                textColor = "light"
+                                />
+                        )}
+                                
+                        <Button onPress={showDatepicker} title = "Date of Service!" />
+                        
+                       
+                        </View>
+                        <View>
+                            <Button onPress={showTimepicker} title = "Start Time" />
+                            
+                            <DateTimePicker
+                                testID = "dateTimePicker"
+                                value = {date}
+                                mode = {mode}
+                                is24Hour = {true}
+                                display = 'default'
+                                onChange = {onChange}
+                                textColor = "light"
+                                />
+                       
+                        </View>
+                       
+                    </View>
+
                     <View   style = {{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -346,18 +413,18 @@ React.useEffect(() => {
                         </View>
                         
                 </View>
-            </View>
+            </ScrollView>
         )
     }
     
     return (
         
         <SafeAreaView style = {styles.container}>
-            { /* <ScrollView> */ }
+            <ScrollView>
             {renderHeader()}
             {renderServiceInfo()}
             {renderOrder()}     
-            {/* </ScrollView> */} 
+           </ScrollView>
         </SafeAreaView>
         
     )
