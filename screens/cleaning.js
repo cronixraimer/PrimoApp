@@ -17,30 +17,27 @@ const [currentLocation, setCurrentLocation] = React.useState(null)
 const [orderItems, setOrderItems] = React.useState([])
 const [date, setDate] = useState(new Date (1598051730000))
 const [mode, setMode] = useState('date')
-const [modetime, setModeTime] = useState('time')
+const [modetime, setTime] = useState('time')
 const [show, setShow] = useState(false)
 
 const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date
+    const currentDate = selectedDate || date 
     setShow(Platform.OS === 'ios')
     setDate(currentDate)
-    setTime(currentTime)
+    setTime(currentDate)
 }
-const showModeDate = (currentMode) => {
+const showMode = (currentMode) => {
     setShow(true)
     setMode(currentMode)
 }
-const showModeTime = (currentModeTime) => {
-    setShow(true)
-    setMode(currentModeTime)
-}
+
 
 const showDatepicker = () => {
-    showModeDate('date')
+    showMode('date')
 }
 
 const showTimepicker = () => {
-    showModeTime('time')
+    showMode('time')
 }
 
 React.useEffect(() => {
@@ -301,20 +298,22 @@ React.useEffect(() => {
         return (
             <ScrollView>
                 {renderDots()}
-
                 <View   style = {{
                     backgroundColor: COLORS.white,
                     borderTopLeftRadius: 40,
-                    borderTopRightRadius: 40
-                }}>
-                    <View>
+                    borderTopRightRadius: 40 }}>
+                   
+                   
                         <View style = {{ 
                             
                             paddingVertical: SIZES.padding * 2,
                             paddingHorizontal: SIZES.padding * 3,
                             borderBottomColor: COLORS.lightGray2,
                             borderBottomWidth: 1 }}>
-                                {show && (
+                                
+                        <Button onPress={showDatepicker} title = "Date of Service!" />
+                        
+                    
                             <DateTimePicker
                                 testID = "dateTimePicker"
                                 value = {date}
@@ -322,13 +321,9 @@ React.useEffect(() => {
                                 is24Hour = {true}
                                 display = 'default'
                                 onChange = {onChange}
-                                textColor = "light"
+                              
                                 />
-                        )}
-                                
-                        <Button onPress={showDatepicker} title = "Date of Service!" />
                         
-                       
                         </View>
                         <View>
                             <Button onPress={showTimepicker} title = "Start Time" />
@@ -336,7 +331,7 @@ React.useEffect(() => {
                             <DateTimePicker
                                 testID = "dateTimePicker"
                                 value = {date}
-                                mode = {mode}
+                                mode = {modetime}
                                 is24Hour = {true}
                                 display = 'default'
                                 onChange = {onChange}
@@ -345,7 +340,6 @@ React.useEffect(() => {
                        
                         </View>
                        
-                    </View>
 
                     <View   style = {{
                         flexDirection: 'row',
