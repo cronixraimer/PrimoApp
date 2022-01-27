@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 const Schedule = () => {
     return (
         <View>
-            <Text> Schedule </Text>
+            <Text> Schedule LETS START THEN! </Text>
         </View>
     )
 }

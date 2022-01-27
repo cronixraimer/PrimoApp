@@ -92,7 +92,7 @@ const CustomTabBar = (props) => {
 const Tabs = () => {
     return (
         <Tab.Navigator
-            tabBarOptions={{ showLabel: false,
+            screenOptions={{ showLabel: false,
                 style: {
                     position: 'absolute',
                     backgroundColor: "transparent",
