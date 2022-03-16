@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Text } from 'react-native'
 
 const Schedule = () => {
     return (
@@ -10,3 +10,16 @@ const Schedule = () => {
 }
 
 export default Schedule;
+
+const styles = StyleSheet.create({
+    safe: {
+        flex: 1,
+    },
+    itemContainer: {
+        backgroundColor: 'white',
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+})
