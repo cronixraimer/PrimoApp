@@ -9,35 +9,48 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 
 
 
-const Cleaning = ({ route, navigation }) => {
+const Cleaning = ({ route, navigation }) => 
+{
 
 const scrollX = new Animated.Value(0)
 const [service, setService] = React.useState(null)
 const [currentLocation, setCurrentLocation] = React.useState(null)
 const [orderItems, setOrderItems] = React.useState([])
-const [date, setDate] = useState(new Date (1598051730000))
-const [mode, setMode] = useState('date')
-const [modetime, setTime] = useState('time')
-const [show, setShow] = useState(false)
 
+
+const [date, setDate] = useState(new Date())
+const [mode, setMode] = useState('date')
+const [show, setShow] = useState(false)
 const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date 
-    setShow(Platform.OS === 'ios')
+   const currentDate = selectedDate || date 
     setDate(currentDate)
-    setTime(currentDate)
+   // setShow(Platform.OS === 'ios')
+
 }
 const showMode = (currentMode) => {
     setShow(true)
     setMode(currentMode)
+    
 }
-
-
 const showDatepicker = () => {
     showMode('date')
 }
 
+
+const [time, setTime] = useState(new Date())
+const [modetime, setModeTime] = useState('time')
+const [showtime, setShowTime] = useState(false)
+
+const onChangeTime = (evenTime, selectedTime) => {
+    const curruntTime = selectedTime || time
+    setTime(curruntTime)
+}
+const ShowModeTime = (currentModeTime) => {
+    setShowTime(true)
+    setModeTime(currentModeTime)
+}
 const showTimepicker = () => {
-    showMode('time')
+    ShowModeTime('time')
 }
 
 React.useEffect(() => {
@@ -305,7 +318,9 @@ React.useEffect(() => {
                    
                    
                         <View style = {{ 
-                            
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
                             paddingVertical: SIZES.padding * 2,
                             paddingHorizontal: SIZES.padding * 3,
                             borderBottomColor: COLORS.lightGray2,
@@ -313,29 +328,37 @@ React.useEffect(() => {
                                 
                         <Button onPress={showDatepicker} title = "Date of Service!" />
                         
-                    
+                
                             <DateTimePicker
                                 testID = "dateTimePicker"
                                 value = {date}
                                 mode = {mode}
-                                is24Hour = {true}
+                                is24Hour={true}
+                                //minimumDate = "2022-03-17"  current date has to be from server  
                                 display = 'default'
                                 onChange = {onChange}
                               
                                 />
                         
                         </View>
-                        <View>
+                        <View style = {{ 
+                            
+                            justifyContent: 'space-between',
+                            paddingVertical: SIZES.padding * 2,
+                            paddingHorizontal: SIZES.padding * 3,
+                            borderBottomColor: COLORS.lightGray2,
+                            borderBottomWidth: 1 }}>
                             <Button onPress={showTimepicker} title = "Start Time" />
                             
-                            <DateTimePicker
+                          <DateTimePicker
                                 testID = "dateTimePicker"
-                                value = {date}
+                                value = {time}
                                 mode = {modetime}
                                 is24Hour = {true}
                                 display = 'default'
-                                onChange = {onChange}
+                                onChange = {onChangeTime}
                                 textColor = "light"
+                                
                                 />
                        
                         </View>
