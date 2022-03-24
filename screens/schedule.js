@@ -19,6 +19,7 @@ const Schedule = () => {
             justifyContent: 'center'
         }} >
             <Calendar
+  hidemonthNamesShort={false}
   // Initially visible month. Default = now
   current={'2022-03-23'}
   // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -50,7 +51,7 @@ const Schedule = () => {
   // day from another month that is visible in calendar page. Default = false
   disableMonthChange={true}
   // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday
-  firstDay={1}
+  firstDay={0}
   // Hide day names. Default = false
   hideDayNames={false}
   // Show week numbers to the left. Default = false
@@ -71,6 +72,13 @@ const Schedule = () => {
   }}
   // Enable the option to swipe between months. Default = false
   enableSwipeMonths={true}
+  markingType={'custom'}//responsible for customizing text and style
+  markedDates={{
+    '2022-03-25': {selected: true, marked: true, selectedColor: 'green'},//when customer has service will be shoed as green
+    '2022-03-22': {marked: true,},
+    '2022-03-23': {selected: true, marked: true, dotColor: 'red', activeOpacity: 0, selectedColor: 'green', customStyles:{text:{color: 'black'}}}, // this one will be responsible for cancelled job by the customers
+    '2022-03-27': {disabled: true, disableTouchEvent: true}//customer cant book when we will be booked fully
+  }}
 />
             
         </View>
